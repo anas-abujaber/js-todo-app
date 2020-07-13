@@ -1,0 +1,95 @@
+body {
+  background-color: rgb(240, 249, 252);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.app-heading {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+main {
+  background-color: #fff;
+  width: 77%;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px #ddd;
+}
+
+/* Style the form */
+.todo-form label {
+  display: block;
+  font-size: 1.6rem;
+}
+
+.todo-input {
+  padding: 0.5rem;
+  width: 60%;
+  outline: 0;
+  font-size: 1.1rem;
+}
+
+.todo-input:focus {
+  border: 2px solid #333;
+}
+
+.todo-btn {
+  padding: 0.6rem 1rem;
+  font-size: 1.1rem;
+  background-color: rgba(50, 146, 84, 0.8);
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.todo-btn:hover,
+.todo-btn:focus {
+  background-color: rgb(50, 146, 84);
+}
+
+/* Style the todo list */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  width: 62%;
+  margin-top: 1.2rem;
+}
+
+.todo-list__item {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-list__item p {
+  margin: 0;
+}
+
+.todo-list__item__button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  visibility: hidden;
+  font-size: 1rem;
+}
+
+.todo-list__item:hover .todo-list__item__button {
+    visibility: visible;
+}
+
+/* General classes */
+.main-color {
+  color: #329254;
+}
+
+.error-message {
+  color: tomato;
+}
