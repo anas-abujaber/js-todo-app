@@ -4,73 +4,38 @@ var $todoForm = document.querySelector(".todo-form"),
 
 $todoForm.addEventListener("submit", addTodo);
 
-window.addEventListener("DOMContentLoaded", function (e) {
+window.addEventListener("DOMContentLoaded", function () {
   var todoList = store.getItemsFromLocalStorage();
   todoList.forEach(function (todo) {
     renderListItem(todo);
   });
 });
 
-function addTodo(submitEvent) {
-  submitEvent.preventDefault();
+function addTodo(e) {
+  e.preventDefault();
 
   var inputValue = $todoInput.value;
   if (!isTodoValid(inputValue)) {
     showErrorMessage("The todo is not valid !");
-  };
+    return;
+  }
+
   renderListItem(inputValue);
   store.saveTodo(inputValue);
-
-  // this here refers to the todo form element
   this.reset();
 }
 
 function isTodoValid(value) {
-  if (isValueNotEmpty(value) && isValueNotContainsSpecialChars(value)) {
-    return true;
-  } else {
-    return false;
-  }
-
-
-  // var rules = [isValueNotEmpty, isValueNotContainsSpecialChars];
-
-  // for (
-  //   let counter = 0, rulesLength = rules.length;
-  //   counter < rulesLength;
-  //   counter++
-  // ) {
-  //   if (!rules[counter](value)) {
-  //     return false;
-  //   }
-  // }
-
-  // return true;
+  return isValueNotEmpty(value) && isValueNotContainsSpecialChars(value);
 }
 
 function isValueNotEmpty(value) {
-  if (value.length === 0) {
-    // showErrorMessage("Todo can't be empty !");
-    return false;
-  }
-
-  return true;
+  return value.length > 0;
 }
 
 function isValueNotContainsSpecialChars(value) {
   var specialChars = ["$", "<", ">", "%", "*", "#", "@", "(", ")", "!", "^"];
-  for (
-    var counter = 0, length = specialChars.length;
-    counter < length;
-    counter++
-  ) {
-    if (value.indexOf(specialChars[counter]) > -1) {
-      // showErrorMessage("Todo can't contain special characters !");
-      return false;
-    }
-  }
-
-  return true;
+  return !specialChars.some((char) => value.includes(char));
 }
 
 function showErrorMessage(message) {
@@ -81,8 +46,8 @@ function showErrorMessage(message) {
   });
 
   $todoForm.insertAdjacentElement("afterend", messageEl);
-  setTimeout(function () {
-    document.querySelector(".error-message").remove();
+  setTimeout(() => {
+    document.querySelector(".error-message")?.remove();
   }, 2000);
 }
 
@@ -107,8 +72,8 @@ function renderListItem(content) {
   appendElement($listItem, $todoList);
 }
 
-function removeListItem(clickEvent) {
-  var listItem = clickEvent.target.parentElement;
+function removeListItem(e) {
+  var listItem = e.target.parentElement;
   store.removeTodo(
     getItemIndexByItsContent(
       listItem.querySelector(".todo-list__item__content").textContent
@@ -118,52 +83,25 @@ function removeListItem(clickEvent) {
 }
 
 function getItemIndexByItsContent(item) {
-  var list = store.getItemsFromLocalStorage(),
-    index;
-  for (var counter = 0, length = list.length; counter < length; counter++) {
-    if (list[counter] === item) {
-      index = counter;
-      break;
-    }
-  }
-
-  return index;
+  var list = store.getItemsFromLocalStorage();
+  return list.indexOf(item);
 }
 
-/**
- * Append element to the document and return that element,
- * so that we can append more elements to that element.
- * If element is array of elements, call the function again on every array element
- */
 function appendElement(element, parent) {
   if (Array.isArray(element)) {
-    return element.forEach(function (item) {
-      appendElement(item, parent);
-    });
+    element.forEach((el) => appendElement(el, parent));
+  } else {
+    parent.append(element);
   }
-  parent.append(element);
 }
 
-/**
- * Create element with class name and event listener if provided
- * object structure: { tagName: string, className: string, content: string }
- *
- * @param {object} item
- */
 function createElement(item) {
   var element = document.createElement(item.tagName);
-
-  if (item.className) {
-    element.className = item.className;
-  }
-
-  if (item.content) {
-    element.innerHTML = item.content;
-  }
+  if (item.className) element.className = item.className;
+  if (item.content) element.innerHTML = item.content;
   return element;
 }
 
-// Local storage layer
 var store = {
   getItemsFromLocalStorage: function () {
     return JSON.parse(localStorage.getItem("todoItems")) || [];

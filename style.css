@@ -7,31 +7,50 @@ body {
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 4rem;
+  color: green;
 }
 
 main {
   background-color: #fff;
-  width: 77%;
+  width: 80%;
   margin: auto;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0px 0px 5px #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Style the form */
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
 .todo-form label {
-  display: block;
   font-size: 1.6rem;
+  text-align: right;
+  align-self: flex-end;
+  margin-bottom: 0.3rem;
+  width: 100%;
+}
+
+.todo-form label {
+  font-size: 1.6rem;
+  align-self: flex-end;
+  margin-bottom: 0.3rem;
 }
 
 .todo-input {
   padding: 0.5rem;
-  width: 60%;
+  width: 100%;
   outline: 0;
   font-size: 1.1rem;
 }
-
-.todo-input:focus {
+.todo-input:hover {
   border: 2px solid #333;
 }
 
@@ -45,13 +64,11 @@ main {
   border-radius: 2px;
   cursor: pointer;
 }
-
 .todo-btn:hover,
 .todo-btn:focus {
   background-color: rgb(50, 146, 84);
 }
 
-/* Style the todo list */
 .todo-list {
   list-style: none;
   padding: 0;
@@ -82,14 +99,10 @@ main {
 }
 
 .todo-list__item:hover .todo-list__item__button {
-    visibility: visible;
-}
-
-/* General classes */
-.main-color {
-  color: #329254;
+  visibility: visible;
 }
 
 .error-message {
   color: tomato;
+  margin-top: 1rem;
 }

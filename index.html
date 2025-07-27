@@ -8,20 +8,20 @@
   </head>
   <body>
     <header>
-      <h1 class="app-heading main-color">todo list</h1>
+      <h1 class="app-heading">todo list</h1>
     </header>
     <main>
       <form class="todo-form">
-        <label for="todo-input">Add a new todo item</label>
-        <input type="text" name="todo" id="todo-input" class="todo-input" />
+        <div class="todo-form__field">
+          <label for="todo-input">Add a new todo item</label>
+          <input type="text" name="todo" id="todo-input" class="todo-input" />
+        </div>
         <button class="todo-btn" type="submit">Add todo</button>
       </form>
 
-      <!-- Here will be inserted the content of the todo items -->
-      <ul class="todo-list">
-      </ul>
+      <ul class="todo-list"></ul>
     </main>
-    
+
     <script src="app.js" defer></script>
   </body>
 </html>
